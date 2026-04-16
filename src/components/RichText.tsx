@@ -19,7 +19,10 @@ function renderNode(node: InlineNode, key: number) {
       </strong>
     );
   }
-  return <em key={key}>{node.italic}</em>;
+  if ("italic" in node) {
+    return <em key={key}>{node.italic}</em>;
+  }
+  return <br key={key} />;
 }
 
 export function RichText({ paragraphs, className }: RichTextProps) {

@@ -12,9 +12,7 @@ export const heroImages: string[] = [
 ];
 
 // Basic info: one or more photos showing the house + plot alongside the specs.
-export const basicInfoImages: string[] = [
-  // e.g. "/images/basic-info-exterior.jpg",
-];
+export const basicInfoImages: string[] = ["/images/aerial-photo-hero_3.jpeg"];
 
 // Gallery slideshow (section 3). Index matches `nl.slideshow.slides`.
 export const slideshowImages: string[] = [
@@ -24,9 +22,8 @@ export const slideshowImages: string[] = [
 
 // Location tabs backgrounds. Index matches `nl.location.tabs`.
 export const locationImages: string[] = [
-  // [0] natuur — Möckeln, bossen, meren
-  // [1] voorzieningen — dorp / Älmhult
-  // [2] avonturen — buitenleven
-  // [3] bereikbaar — treinstation / vliegveld / weg
-  // [4] weten — de doorgaande weg
+  "/images/aerial-photo-hero_3.jpeg",
+  "/images/aerial-photo-hero_1.jpeg",
+  "/images/aerial-photo-hero_2.jpeg",
+  "/images/aerial-photo-hero_4.jpeg",
 ];

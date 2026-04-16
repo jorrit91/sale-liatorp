@@ -1,5 +1,6 @@
 import { AlertTriangle } from "lucide-react";
 
+import { RichText } from "@/components/RichText";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { amenities } from "@/content/nl/amenities";
 
@@ -39,9 +40,10 @@ export function Amenities() {
                   ) : null}
                   {tab.title}
                 </h3>
-                <p className="text-foreground/80 max-w-2xl text-base leading-relaxed md:text-lg">
-                  {tab.body}
-                </p>
+                <RichText
+                  paragraphs={tab.body}
+                  className="text-foreground/80 max-w-2xl text-base leading-relaxed md:text-lg"
+                />
               </div>
             </TabsContent>
           ))}

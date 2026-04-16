@@ -17,7 +17,10 @@ export const location: {
       title: "Ontdek de Smålandse bossen en meren",
       paragraphs: [
         [
-          "Vlakbij Möckeln (nog geen 10 auto minuten), een enorm meer van maar liefst 48 vierkante kilometer. Hier vind je prachtige kano-routes, badplaatsen met de mooiste zonsondergangen en honderden eilandjes om te verkennen. In Zweden word je uitgenodigd om te genieten van de natuur, door het bekende ",
+          "Vlakbij Möckeln (nog geen 10 auto minuten), een enorm meer van maar liefst 48 vierkante kilometer. Hier vind je prachtige kano-routes, badplaatsen met de mooiste zonsondergangen en honderden eilandjes om te verkennen.",
+          { br: true },
+          { br: true },
+          "In Zweden word je uitgenodigd om te genieten van de natuur, door het bekende ",
           { italic: "allemansrätten" },
           " mag je op de meeste plekken je tent opzetten en je eigen worstjes grillen.",
         ],
@@ -28,7 +31,10 @@ export const location: {
       title: "Voorzieningen in de buurt",
       paragraphs: [
         [
-          "In het dorpje vind je een kleine supermarkt voor de dagelijkse basics. In Älmhult (12 auto minuten) kan je terecht voor uitgebreidere boodschappen. Hier vind je ook scholen (waaronder een internationale school) en een huisarts. In Ljungby (30 auto minuten) of Växjö (40 auto minuten) vind je de dichstbijzijnde ziekenhuizen.",
+          "In het dorpje vind je een kleine supermarkt voor de dagelijkse basics. In Älmhult (12 auto minuten) kan je terecht voor uitgebreidere boodschappen.",
+          { br: true },
+          { br: true },
+          "Hier vind je ook scholen (waaronder een internationale school) en een huisarts. In Ljungby (30 auto minuten) of Växjö (40 auto minuten) vind je de dichstbijzijnde ziekenhuizen.",
         ],
       ],
     },
@@ -37,7 +43,10 @@ export const location: {
       title: "Eindeloze buitenavonturen",
       paragraphs: [
         [
-          "Bij ons in Småland hang je zelf de slingers op. Of je nou houdt van hardlopen, zwemmen, vissen, fietsen, kamperen, hiken, kayakken of alles er tussenin; hier kan je je hart ophalen. Met een beetje geluk spot je zelfs elanden, reeën of ander veelvoorkomend wild.",
+          "Bij ons in Småland hang je zelf de slingers op. Of je nou houdt van hardlopen, zwemmen, vissen, fietsen, kamperen, hiken, kayakken of alles er tussenin; hier kan je je hart ophalen.",
+          { br: true },
+          { br: true },
+          "Met een beetje geluk spot je zelfs elanden, reeën of ander veelvoorkomend wild.",
         ],
       ],
     },
@@ -46,7 +55,10 @@ export const location: {
       title: "Goed bereikbaar vanaf Kopenhagen/Malmö ✈️",
       paragraphs: [
         [
-          "Ondanks de ligging in het rustige en sprookjesachtige Småland is de stedelijke omgeving niet ver weg. In 2,5 uur rij je van het vliegveld in Kopenhagen naar je huisje in het bos. Ook heeft het nabijgelegen Älmhult (12 auto minuten) een rechtstreekse treinverbinding met het vliegveld CPH.",
+          "Ondanks de ligging in het rustige en sprookjesachtige Småland is de stedelijke omgeving niet ver weg. In 2,5 uur rij je van het vliegveld in Kopenhagen naar je huisje in het bos.",
+          { br: true },
+          { br: true },
+          "Ook heeft het nabijgelegen Älmhult (12 auto minuten) een rechtstreekse treinverbinding met het vliegveld CPH.",
         ],
       ],
     },
