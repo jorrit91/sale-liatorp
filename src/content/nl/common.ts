@@ -7,4 +7,5 @@ export const common = {
   priceEur: "€145.000",
   priceSek: "1.600.000 SEK",
   location: "Liatorp, Småland",
+  winterTeaser: "Benieuwd hoe het eruit ziet in de winter? 👀",
 } as const;

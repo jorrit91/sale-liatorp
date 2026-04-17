@@ -41,6 +41,9 @@ export const galleryImages: Record<string, string[]> = {
   ],
 };
 
+// Winter easter egg photo shown in the floating modal.
+export const winterImage: string = "/images/huis-winter.jpg";
+
 // Full-bleed closing photo shown right before the footer.
 export const closingImage: string = "/images/huis-zomer.jpg";
 

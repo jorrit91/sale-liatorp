@@ -48,7 +48,7 @@ export function Hero(): React.ReactNode {
       />
 
       {/* Text content — anchored to bottom */}
-      <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-start px-6 pb-16 text-[#faf8f4] md:px-10 md:pb-24">
+      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-start px-6 pb-16 text-[#faf8f4] md:px-10 md:pb-24">
         <h1 className="font-heading text-4xl leading-[1.05] font-normal md:text-6xl">
           {nl.hero.title}
         </h1>

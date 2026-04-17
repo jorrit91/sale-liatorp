@@ -8,6 +8,7 @@ import { Hero } from "@/components/sections/hero";
 import { Location } from "@/components/sections/location";
 import { Slideshow } from "@/components/sections/slideshow";
 import { Separator } from "@/components/ui/separator";
+import { WinterTeaser } from "@/components/WinterTeaser";
 
 export default function HomePage() {
   return (
@@ -24,6 +25,7 @@ export default function HomePage() {
       <BuyingProcess />
       <ClosingImage />
       <Footer />
+      <WinterTeaser />
     </main>
   );
 }
