@@ -4,14 +4,23 @@ import { InstagramIcon } from "@/components/icons/InstagramIcon";
 import { Button } from "@/components/ui/button";
 import { nl } from "@/content/nl";
 
-export function Footer() {
+export function Footer(): React.ReactNode {
   return (
-    <footer id="contact" className="border-border border-t bg-[#1c2a22] text-[#faf8f4]">
+    <footer id="contact" className="bg-[#1c2a22] text-[#faf8f4]">
       <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 px-6 py-24 text-center md:px-10 md:py-32">
-        <p className="mx-auto max-w-2xl text-base leading-relaxed text-[#faf8f4]/85 md:text-lg">
+        <p className="mx-auto max-w-2xl text-lg leading-relaxed text-[#faf8f4]/85 md:text-xl">
           {nl.footer.closing}
         </p>
-        <p className="font-heading text-3xl leading-tight md:text-5xl">{nl.footer.price}</p>
+
+        <div>
+          <p className="font-heading text-5xl leading-none tracking-tight md:text-7xl lg:text-8xl">
+            {nl.common.priceEur}
+          </p>
+          <p className="mt-3 text-base text-[#faf8f4]/50 md:text-lg">
+            {nl.common.priceSek}
+          </p>
+        </div>
+
         <p className="mx-auto max-w-xl text-base text-[#faf8f4]/75 md:text-lg">
           {nl.footer.contact}
         </p>

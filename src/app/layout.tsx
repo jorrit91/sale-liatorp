@@ -14,7 +14,7 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "Liatorp — Zweeds vakantiehuis te koop",
+  title: "Liatorp - Zweeds vakantiehuis te koop",
   description:
     "Klassiek Zweeds vakantiehuis midden in de bossen van Småland. Gebouwd in 2011, goed geïsoleerd, snel internet. €145.000.",
 };

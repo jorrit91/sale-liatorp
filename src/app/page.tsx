@@ -1,6 +1,7 @@
 import { Amenities } from "@/components/sections/amenities";
 import { BasicInfo } from "@/components/sections/basic-info";
 import { BuyingProcess } from "@/components/sections/buying-process";
+import { ClosingImage } from "@/components/sections/closing-image";
 import { Costs } from "@/components/sections/costs";
 import { Footer } from "@/components/sections/footer";
 import { Hero } from "@/components/sections/hero";
@@ -21,6 +22,7 @@ export default function HomePage() {
       <Separator />
       <Amenities />
       <BuyingProcess />
+      <ClosingImage />
       <Footer />
     </main>
   );
