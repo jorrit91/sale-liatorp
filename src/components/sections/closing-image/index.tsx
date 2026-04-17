@@ -1,5 +1,4 @@
-import Image from "next/image";
-
+import { BlurImage } from "@/components/BlurImage";
 import { closingImage } from "@/content/images";
 
 export function ClosingImage(): React.ReactNode {
@@ -7,7 +6,7 @@ export function ClosingImage(): React.ReactNode {
 
   return (
     <div className="relative aspect-[2/1] w-full">
-      <Image
+      <BlurImage
         src={closingImage}
         alt=""
         fill

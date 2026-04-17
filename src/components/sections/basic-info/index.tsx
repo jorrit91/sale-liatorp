@@ -1,4 +1,3 @@
-import Image from "next/image";
 import {
   Bed,
   CalendarDays,
@@ -11,7 +10,6 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-import { basicInfoImages } from "@/content/images";
 import { basicInfo, type BasicInfoIcon } from "@/content/nl/basic-info";
 
 const iconMap: Record<BasicInfoIcon, LucideIcon> = {

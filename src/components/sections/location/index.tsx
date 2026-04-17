@@ -1,14 +1,14 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 
+import { BlurImage } from "@/components/BlurImage";
 import { RichText } from "@/components/RichText";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { locationImages } from "@/content/images";
 import { location } from "@/content/nl/location";
 
-export function Location() {
+export function Location(): React.ReactNode {
   const [active, setActive] = useState<string>(location.tabs[0].key);
   const activeIndex = location.tabs.findIndex((t) => t.key === active);
 
@@ -17,6 +17,7 @@ export function Location() {
       id="ligging"
       className="relative isolate w-full overflow-hidden bg-[#1c2a22] py-24 md:py-32"
     >
+      {/* Background images — desktop only (tabs drive which is visible) */}
       {location.tabs.map((tab, i) => {
         const image = locationImages[i];
         if (!image) return null;
@@ -24,11 +25,11 @@ export function Location() {
           <div
             key={tab.key}
             aria-hidden
-            className={`absolute inset-0 transition-opacity duration-700 ${
+            className={`absolute inset-0 hidden transition-opacity duration-700 md:block ${
               i === activeIndex ? "opacity-100" : "opacity-0"
             }`}
           >
-            <Image src={image} alt="" fill sizes="100vw" className="object-cover" />
+            <BlurImage src={image} alt="" fill sizes="100vw" className="object-cover" />
           </div>
         );
       })}
@@ -43,28 +44,44 @@ export function Location() {
           {location.title}
         </h2>
 
+        {/* Mobile: stacked list */}
+        <div className="mt-12 flex flex-col gap-10 md:hidden">
+          {location.tabs.map((tab) => (
+            <div key={tab.key} className="flex flex-col gap-3">
+              <h3 className="font-heading text-xl text-[#faf8f4] [text-shadow:0_1px_8px_rgba(0,0,0,0.5)]">
+                {tab.title}
+              </h3>
+              <RichText
+                paragraphs={tab.paragraphs}
+                className="max-w-2xl text-base text-[#faf8f4]/90"
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop: vertical tabs */}
         <Tabs
           value={active}
           onValueChange={(v) => setActive(v as string)}
           orientation="vertical"
-          className="mt-12 md:grid md:grid-cols-[280px_1fr] md:gap-12"
+          className="mt-12 hidden md:grid md:grid-cols-[280px_1fr] md:gap-12"
         >
           <TabsList
             variant="line"
-            className="flex h-auto w-full flex-row flex-wrap gap-2 overflow-x-auto border-b border-[#faf8f4]/25 pb-2 md:flex-col md:flex-nowrap md:items-stretch md:gap-1 md:border-b-0 md:border-l md:border-[#faf8f4]/25 md:pb-0"
+            className="flex h-auto w-full flex-col items-stretch gap-1 border-l border-[#faf8f4]/25 pb-0"
           >
             {location.tabs.map((tab) => (
               <TabsTrigger
                 key={tab.key}
                 value={tab.key}
-                className="data-active:text-muted! text-muted/50! hover:text-muted! h-auto justify-start px-0 py-2 text-left text-base whitespace-normal [text-shadow:0_1px_8px_rgba(0,0,0,0.5)] after:bg-[#faf8f4] md:px-4 md:text-lg"
+                className="data-active:text-muted! text-muted/50! hover:text-muted! h-auto justify-start px-4 py-2 text-left text-lg whitespace-normal [text-shadow:0_1px_8px_rgba(0,0,0,0.5)] after:bg-[#faf8f4]"
               >
                 {tab.title}
               </TabsTrigger>
             ))}
           </TabsList>
 
-          <div className="mt-6 min-h-55 md:mt-0">
+          <div className="min-h-55">
             {location.tabs.map((tab) => (
               <TabsContent key={tab.key} value={tab.key}>
                 <article className="flex flex-col gap-4 [text-shadow:0_1px_10px_rgba(0,0,0,0.5)]">

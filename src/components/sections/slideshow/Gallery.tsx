@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
+import { BlurImage } from "@/components/BlurImage";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import {
@@ -129,12 +129,12 @@ export function Gallery({ groups }: GalleryProps): React.ReactNode {
                     onClick={() => setOpenIndex(flatIndex)}
                   >
                     {photo.src ? (
-                      <Image
+                      <BlurImage
                         src={photo.src}
                         alt={photo.alt}
                         fill
                         sizes="(min-width: 768px) 25vw, 50vw"
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        className="object-cover group-hover:scale-110"
                       />
                     ) : (
                       <span className="text-muted-foreground absolute inset-0 flex items-center justify-center text-xs">
@@ -160,7 +160,7 @@ export function Gallery({ groups }: GalleryProps): React.ReactNode {
           {current && (
             <>
               <div className="bg-secondary relative aspect-4/3 w-full">
-                <Image
+                <BlurImage
                   src={current.src}
                   alt={current.alt}
                   fill
