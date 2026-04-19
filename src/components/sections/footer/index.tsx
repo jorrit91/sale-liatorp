@@ -1,8 +1,7 @@
+import { CopyEmailButton } from "@/components/CopyEmailButton";
 import { InstagramIcon } from "@/components/icons/InstagramIcon";
 import { Button } from "@/components/ui/button";
 import { nl } from "@/content/nl";
-
-import { CopyEmailButton } from "./CopyEmailButton";
 
 export function Footer(): React.ReactNode {
   return (

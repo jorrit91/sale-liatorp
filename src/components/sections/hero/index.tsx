@@ -1,7 +1,8 @@
 "use client";
 
 import { BlurImage } from "@/components/BlurImage";
-import { Mail, MapPin } from "lucide-react";
+import { CopyEmailButton } from "@/components/CopyEmailButton";
+import { MapPin } from "lucide-react";
 import { useEffect, useState, useSyncExternalStore } from "react";
 
 import { InstagramIcon } from "@/components/icons/InstagramIcon";
@@ -105,16 +106,14 @@ export function Hero(): React.ReactNode {
           {nl.hero.description}
         </p>
         <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
-          <Button size="lg" render={<a href={`mailto:${nl.common.email}`} />} className="gap-2">
-            <Mail className="size-4" /> {nl.hero.ctas.mail}
-          </Button>
+          <CopyEmailButton />
           <Button
             size="lg"
             variant="outline"
             render={<a href={nl.common.instagramUrl} target="_blank" rel="noreferrer" />}
             className="gap-2 border-[#faf8f4]/30 bg-transparent text-[#faf8f4] hover:bg-[#faf8f4]/10 hover:text-[#faf8f4]"
           >
-            <InstagramIcon className="size-4" /> {nl.hero.ctas.instagram}
+            <InstagramIcon className="size-4" /> {nl.common.instagramHandle}
           </Button>
           <a
             href={nl.common.mapsUrl}

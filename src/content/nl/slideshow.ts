@@ -231,5 +231,34 @@ export const slideshow = {
         },
       ],
     },
+    {
+      key: "perceel",
+      title: "Perceel",
+      description:
+        "Het ruime perceel van 2 390 m² rondom het huis biedt voldoende ruimte voor tuinieren, spelen en ontspannen.",
+      photos: [
+        {
+          alt: "Perceel",
+          caption: "Zicht op het huis van (boven) de onverharde weg waaraan het ligt.",
+          url: "aerial-photo-hero_3.jpg",
+        },
+        {
+          alt: "Perceel",
+          caption:
+            "Hier zie je het huis vanaf de zuidkant, aan de rechterkant zie je het gastenverblijf liggen.",
+          url: "aerial-photo-hero_1.jpg",
+        },
+        {
+          alt: "Perceel",
+          caption: "Vanuit deze hoek zie je de onverharde weg en de grote klusschuur",
+          url: "aerial-photo-hero_2.jpg",
+        },
+        {
+          alt: "Perceel",
+          caption: "Nog een blik richting de onverharde weg, ongeveer richting het noordwesten.",
+          url: "aerial-photo-hero_4.jpg",
+        },
+      ],
+    },
   ],
 } as const;
