@@ -25,7 +25,7 @@ export function Amenities(): React.ReactNode {
       >
         {amenities.tabs.map((tab) => (
           <AccordionItem key={tab.key} value={tab.key}>
-            <AccordionTrigger className="py-5 text-base font-medium">
+            <AccordionTrigger className="flex items-center py-5 text-base font-medium">
               {tab.warning ? (
                 <AlertTriangle className="text-destructive mr-2 inline size-4" />
               ) : null}
@@ -67,7 +67,7 @@ export function Amenities(): React.ReactNode {
           {amenities.tabs.map((tab) => (
             <TabsContent key={tab.key} value={tab.key}>
               <div className="flex flex-col gap-4">
-                <h3 className="font-heading text-2xl md:text-3xl">
+                <h3 className="font-heading flex items-center text-2xl md:text-3xl">
                   {tab.warning ? (
                     <AlertTriangle className="text-destructive mr-2 inline size-5" />
                   ) : null}
