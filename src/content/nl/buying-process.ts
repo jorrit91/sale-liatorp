@@ -42,7 +42,7 @@ export const buyingProcess: {
           "Hebben jullie een Zweeds persoonsnummer? Dan is het heel eenvoudig, het geld wordt op de derdenrekening van de makelaar gestort en wordt vrijgegeven op het moment dat de sleuteloverdracht plaatsvindt.",
         ],
         [
-          "Geen Zweeds persoonsnummer? Dit kan vrij problematisch zijn, omdat banken steeds vaker weigeren om rekeningen te openen voor EU-burgers zonder persoonsnummer. Gelukkig heeft makelaar Stjernfeldt aangegeven dat een Zweedse bankrekening geen vereiste is. Om de verkoop te vergemakkelijken kan het geld overgemaakt worden naar ",
+          "Geen Zweeds persoonsnummer? Hoewel dit soms problemen kan geven (omdat banken soms weigeren om rekeningen te openen voor EU-burgers zonder persoonsnummer), heeft makelaar Stjernfeldt gelukkig aangegeven dat een Zweedse bankrekening geen vereiste is. Om de verkoop te vergemakkelijken kan het geld overgemaakt worden naar ",
           { bold: "onze" },
           " ",
           { bold: "Nederlandse" },
