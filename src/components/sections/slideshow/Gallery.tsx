@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { BlurImage } from "@/components/BlurImage";
+import { WinterTeaser } from "@/components/WinterTeaser";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -97,7 +98,11 @@ export function Gallery({ groups }: GalleryProps): React.ReactNode {
           const groupOffset = groupOffsets[groupIndex];
 
           return (
-            <div key={group.key} className="flex flex-col gap-6 md:flex-row md:gap-12 md:pb-24">
+            <div
+              key={group.key}
+              className="relative flex flex-col gap-6 md:flex-row md:gap-12 md:pb-24"
+            >
+              {group.key === "perceel" && <WinterTeaser />}
               {/* Sticky label column */}
               <div className="shrink-0 md:sticky md:top-24 md:w-56 md:self-start lg:w-64">
                 <h3 className="font-heading text-2xl md:text-3xl">{group.title}</h3>

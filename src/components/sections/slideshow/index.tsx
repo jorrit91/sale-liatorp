@@ -1,4 +1,3 @@
-import { WinterTeaser } from "@/components/WinterTeaser";
 import { slideshow } from "@/content/nl/slideshow";
 import { assetUrl } from "@/lib/asset-url";
 import { toSmallPath } from "@/lib/to-small-path";
@@ -36,8 +35,6 @@ export function Slideshow(): React.ReactNode {
       <div className="mt-12">
         <Gallery groups={buildGroups()} />
       </div>
-
-      <WinterTeaser />
     </section>
   );
 }

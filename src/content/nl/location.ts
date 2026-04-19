@@ -31,10 +31,10 @@ export const location: {
       title: "Voorzieningen in de buurt",
       paragraphs: [
         [
-          "In het dorpje vind je een kleine supermarkt voor de dagelijkse basics. In Älmhult (12 auto minuten) kan je terecht voor uitgebreidere boodschappen.",
+          "In het dorpje vind je een kleine supermarkt voor de dagelijkse basics. In Älmhult (12 auto minuten) kan je terecht voor uitgebreidere boodschappen. Hier vind je ook scholen (waaronder een internationale school) en een huisarts.",
           { br: true },
           { br: true },
-          "Hier vind je ook scholen (waaronder een internationale school) en een huisarts. In Ljungby (30 auto minuten) of Växjö (40 auto minuten) vind je de dichstbijzijnde ziekenhuizen.",
+          "In Ljungby (30 auto minuten) of Växjö (40 auto minuten) vind je de dichstbijzijnde ziekenhuizen.",
         ],
       ],
     },
