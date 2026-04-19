@@ -8,7 +8,7 @@ export const common = {
   priceEur: "€145.000",
   priceSek: "1.600.000 SEK",
   location: "Liatorp, Småland",
-  winterTeaser: "Curious what it looks like in the winter? 👀",
+  winterTeaser: "Curious what it looks like in winter? 👀",
   copyEmailLabel: "Copy email address",
   emailCopiedLabel: "Email address copied",
   copiedSuccess: "Copied!",
