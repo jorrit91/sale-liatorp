@@ -1,6 +1,7 @@
 "use client";
 
 import { BlurImage } from "@/components/BlurImage";
+import { useContent } from "@/components/ContentProvider";
 import { CopyEmailButton } from "@/components/CopyEmailButton";
 import { MapPin } from "lucide-react";
 import { useEffect, useState, useSyncExternalStore } from "react";
@@ -8,7 +9,6 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 import { InstagramIcon } from "@/components/icons/InstagramIcon";
 import { Button } from "@/components/ui/button";
 import { heroImages } from "@/content/images";
-import { nl } from "@/content/nl";
 import { assetUrl } from "@/lib/asset-url";
 import { toSmallPath } from "@/lib/to-small-path";
 import { cn } from "@/lib/utils";
@@ -67,6 +67,7 @@ function HeroSlide({ src, priority }: { src: string; priority: boolean }): React
 }
 
 export function Hero(): React.ReactNode {
+  const content = useContent();
   const [index, setIndex] = useState(0);
   const slideCount = heroImages.length;
 
@@ -100,28 +101,28 @@ export function Hero(): React.ReactNode {
       {/* Text content — anchored to bottom */}
       <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-start px-6 pb-16 text-[#faf8f4] md:px-10 md:pb-24">
         <h1 className="font-heading text-4xl leading-[1.05] font-normal md:text-6xl">
-          {nl.hero.title}
+          {content.hero.title}
         </h1>
         <p className="mt-6 max-w-2xl text-base leading-relaxed text-[#faf8f4]/80 md:text-lg">
-          {nl.hero.description}
+          {content.hero.description}
         </p>
         <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
           <CopyEmailButton />
           <Button
             size="lg"
             variant="outline"
-            render={<a href={nl.common.instagramUrl} target="_blank" rel="noreferrer" />}
+            render={<a href={content.common.instagramUrl} target="_blank" rel="noreferrer" />}
             className="gap-2 border-[#faf8f4]/30 bg-transparent text-[#faf8f4] hover:bg-[#faf8f4]/10 hover:text-[#faf8f4]"
           >
-            <InstagramIcon className="size-4" /> {nl.common.instagramHandle}
+            <InstagramIcon className="size-4" /> {content.common.instagramHandle}
           </Button>
           <a
-            href={nl.common.mapsUrl}
+            href={content.common.mapsUrl}
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-1.5 text-sm text-[#faf8f4]/70 underline-offset-4 hover:text-[#faf8f4] hover:underline sm:ml-2"
           >
-            <MapPin className="size-3.5" /> {nl.hero.ctas.maps}
+            <MapPin className="size-3.5" /> {content.hero.ctas.maps}
           </a>
         </div>
       </div>

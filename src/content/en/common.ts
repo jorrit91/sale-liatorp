@@ -8,8 +8,8 @@ export const common = {
   priceEur: "€145.000",
   priceSek: "1.600.000 SEK",
   location: "Liatorp, Småland",
-  winterTeaser: "Benieuwd hoe het eruit ziet in de winter? 👀",
-  copyEmailLabel: "Kopieer e-mailadres",
-  emailCopiedLabel: "E-mailadres gekopieerd",
-  copiedSuccess: "Gekopieerd!",
+  winterTeaser: "Curious what it looks like in the winter? 👀",
+  copyEmailLabel: "Copy email address",
+  emailCopiedLabel: "Email address copied",
+  copiedSuccess: "Copied!",
 } as const;

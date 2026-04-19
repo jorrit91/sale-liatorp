@@ -9,12 +9,13 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { BlurImage } from "@/components/BlurImage";
+import { useContent } from "@/components/ContentProvider";
 import { RichText } from "@/components/RichText";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { locationImages } from "@/content/images";
-import { location } from "@/content/nl/location";
 
 export function Location(): React.ReactNode {
+  const { location } = useContent();
   const [active, setActive] = useState<string>(location.tabs[0].key);
   const activeIndex = location.tabs.findIndex((t) => t.key === active);
 

@@ -4,14 +4,15 @@ import { Snowflake } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 import { BlurImage } from "@/components/BlurImage";
+import { useContent } from "@/components/ContentProvider";
 import { Snowfall } from "@/components/Snowfall";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { winterImage } from "@/content/images";
-import { nl } from "@/content/nl";
 
 type Phase = "hidden" | "visible" | "tucked" | "dismissed";
 
 export function WinterTeaser(): React.ReactNode {
+  const content = useContent();
   const [phase, setPhase] = useState<Phase>("hidden");
   const [modalOpen, setModalOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -71,7 +72,7 @@ export function WinterTeaser(): React.ReactNode {
               <Snowflake className="size-4" />
             </span>
             <span className="text-sm font-medium whitespace-nowrap text-sky-900">
-              {nl.common.winterTeaser}
+              {content.common.winterTeaser}
             </span>
           </button>
         )}

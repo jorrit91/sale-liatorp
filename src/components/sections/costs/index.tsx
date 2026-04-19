@@ -1,8 +1,12 @@
+"use client";
+
 import { Wallet } from "lucide-react";
 
-import { costs } from "@/content/nl/costs";
+import { useContent } from "@/components/ContentProvider";
 
 export function Costs() {
+  const { costs } = useContent();
+
   return (
     <section id="kosten" className="mx-auto w-full max-w-6xl px-6 py-24 md:px-10 md:py-32">
       <div className="bg-secondary/60 ring-border rounded-2xl px-6 py-12 ring-1 md:px-16 md:py-20">

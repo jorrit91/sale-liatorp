@@ -1,17 +1,15 @@
-import { slideshow } from "@/content/nl/slideshow";
+"use client";
+
+import { useContent } from "@/components/ContentProvider";
 import { assetUrl } from "@/lib/asset-url";
 import { toSmallPath } from "@/lib/to-small-path";
 
 import { Gallery } from "./Gallery";
 
-/** Resolve content paths to full R2 URLs, with small/full variants per photo. */
-function buildGroups(): {
-  key: string;
-  title: string;
-  description: string;
-  photos: { src: string; fullSrc: string; alt: string; caption: string }[];
-}[] {
-  return slideshow.groups.map((group) => ({
+export function Slideshow(): React.ReactNode {
+  const { slideshow } = useContent();
+
+  const groups = slideshow.groups.map((group) => ({
     key: group.key,
     title: group.title,
     description: group.description,
@@ -22,9 +20,7 @@ function buildGroups(): {
       caption: p.caption,
     })),
   }));
-}
 
-export function Slideshow(): React.ReactNode {
   return (
     <section
       id="rondleiding"
@@ -33,7 +29,7 @@ export function Slideshow(): React.ReactNode {
       <h2 className="font-heading text-3xl leading-tight md:text-5xl">{slideshow.title}</h2>
 
       <div className="mt-12">
-        <Gallery groups={buildGroups()} />
+        <Gallery groups={groups} />
       </div>
     </section>
   );

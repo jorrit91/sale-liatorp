@@ -8,11 +8,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useContent } from "@/components/ContentProvider";
 import { RichText } from "@/components/RichText";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { amenities } from "@/content/nl/amenities";
 
 export function Amenities(): React.ReactNode {
+  const { amenities } = useContent();
   return (
     <section id="voorzieningen" className="mx-auto w-full max-w-6xl px-6 py-24 md:px-10 md:py-32">
       <h2 className="font-heading text-3xl leading-tight md:text-5xl">{amenities.title}</h2>

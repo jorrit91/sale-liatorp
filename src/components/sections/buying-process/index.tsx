@@ -6,10 +6,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useContent } from "@/components/ContentProvider";
 import { RichText } from "@/components/RichText";
-import { buyingProcess } from "@/content/nl/buying-process";
 
 export function BuyingProcess() {
+  const { buyingProcess } = useContent();
   return (
     <section id="kopen" className="bg-secondary/40">
       <div className="mx-auto w-full max-w-3xl px-6 py-24 md:px-10 md:py-32">

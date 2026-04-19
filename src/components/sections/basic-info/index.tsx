@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Bed,
   CalendarDays,
@@ -10,7 +12,8 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-import { basicInfo, type BasicInfoIcon } from "@/content/nl/basic-info";
+import { useContent } from "@/components/ContentProvider";
+import { type BasicInfoIcon } from "@/content/nl/basic-info";
 
 const iconMap: Record<BasicInfoIcon, LucideIcon> = {
   home: Home,
@@ -24,6 +27,8 @@ const iconMap: Record<BasicInfoIcon, LucideIcon> = {
 };
 
 export function BasicInfo() {
+  const { basicInfo } = useContent();
+
   return (
     <section
       id="basis-informatie"
