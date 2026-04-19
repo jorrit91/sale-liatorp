@@ -4,16 +4,12 @@ import * as React from "react";
 import { BlurImage } from "@/components/BlurImage";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
 interface Photo {
   src: string;
+  fullSrc: string;
   alt: string;
   caption: string;
 }
@@ -34,10 +30,18 @@ export function Gallery({ groups }: GalleryProps): React.ReactNode {
   const thumbRefs = React.useRef<Map<number, HTMLButtonElement>>(new Map());
 
   // Flat list of all photos across groups for prev/next navigation
-  const allPhotos = React.useMemo(
-    () => groups.flatMap((g) => g.photos),
-    [groups],
-  );
+  const allPhotos = React.useMemo(() => groups.flatMap((g) => g.photos), [groups]);
+
+  // Warm the browser cache with full-size images so the lightbox opens instantly.
+  React.useEffect(() => {
+    const timer = window.setTimeout(() => {
+      for (const photo of allPhotos) {
+        const img = new window.Image();
+        img.src = photo.fullSrc;
+      }
+    }, 500);
+    return () => window.clearTimeout(timer);
+  }, [allPhotos]);
 
   const open = openIndex !== null;
   const current = open ? allPhotos[openIndex] : null;
@@ -48,9 +52,7 @@ export function Gallery({ groups }: GalleryProps): React.ReactNode {
       requestAnimationFrame(() => {
         if (!thumb) return;
         const rect = thumb.getBoundingClientRect();
-        const inViewport =
-          rect.top >= 0 &&
-          rect.bottom <= window.innerHeight;
+        const inViewport = rect.top >= 0 && rect.bottom <= window.innerHeight;
         if (!inViewport) {
           thumb.scrollIntoView({ behavior: "smooth", block: "center" });
         }
@@ -60,15 +62,11 @@ export function Gallery({ groups }: GalleryProps): React.ReactNode {
   }
 
   function prev(): void {
-    setOpenIndex((i) =>
-      i === null ? null : i === 0 ? allPhotos.length - 1 : i - 1,
-    );
+    setOpenIndex((i) => (i === null ? null : i === 0 ? allPhotos.length - 1 : i - 1));
   }
 
   function next(): void {
-    setOpenIndex((i) =>
-      i === null ? null : i === allPhotos.length - 1 ? 0 : i + 1,
-    );
+    setOpenIndex((i) => (i === null ? null : i === allPhotos.length - 1 ? 0 : i + 1));
   }
 
   function handleKeyDown(e: React.KeyboardEvent): void {
@@ -99,49 +97,42 @@ export function Gallery({ groups }: GalleryProps): React.ReactNode {
           const groupOffset = groupOffsets[groupIndex];
 
           return (
-            <div
-              key={group.key}
-              className="flex flex-col gap-6 md:flex-row md:gap-12 md:pb-24"
-            >
+            <div key={group.key} className="flex flex-col gap-6 md:flex-row md:gap-12 md:pb-24">
               {/* Sticky label column */}
               <div className="shrink-0 md:sticky md:top-24 md:w-56 md:self-start lg:w-64">
-                <h3 className="font-heading text-2xl md:text-3xl">
-                  {group.title}
-                </h3>
-                <p className="text-muted-foreground mt-3 leading-relaxed">
-                  {group.description}
-                </p>
+                <h3 className="font-heading text-2xl md:text-3xl">{group.title}</h3>
+                <p className="text-muted-foreground mt-3 leading-relaxed">{group.description}</p>
               </div>
 
               {/* Photo grid */}
-              <div className="grid flex-1 grid-cols-2 gap-3 md:gap-4">
+              <div className="grid flex-1 grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
                 {group.photos.map((photo, i) => {
                   const flatIndex = groupOffset + i;
                   return (
-                  <button
-                    key={`${photo.alt}-${i}`}
-                    ref={(el) => {
-                      if (el) thumbRefs.current.set(flatIndex, el);
-                      else thumbRefs.current.delete(flatIndex);
-                    }}
-                    type="button"
-                    className="bg-secondary ring-border group focus-visible:ring-ring relative aspect-square overflow-hidden rounded-xl ring-1 focus-visible:ring-2"
-                    onClick={() => setOpenIndex(flatIndex)}
-                  >
-                    {photo.src ? (
-                      <BlurImage
-                        src={photo.src}
-                        alt={photo.alt}
-                        fill
-                        sizes="(min-width: 768px) 25vw, 50vw"
-                        className="object-cover group-hover:scale-110"
-                      />
-                    ) : (
-                      <span className="text-muted-foreground absolute inset-0 flex items-center justify-center text-xs">
-                        {photo.alt}
-                      </span>
-                    )}
-                  </button>
+                    <button
+                      key={`${photo.alt}-${i}`}
+                      ref={(el) => {
+                        if (el) thumbRefs.current.set(flatIndex, el);
+                        else thumbRefs.current.delete(flatIndex);
+                      }}
+                      type="button"
+                      className="bg-secondary ring-border group focus-visible:ring-ring relative aspect-square cursor-pointer overflow-hidden rounded-xl ring-1 focus-visible:ring-2"
+                      onClick={() => setOpenIndex(flatIndex)}
+                    >
+                      {photo.src ? (
+                        <BlurImage
+                          src={photo.src}
+                          alt={photo.alt}
+                          fill
+                          sizes="(min-width: 768px) 25vw, 50vw"
+                          className="object-cover transition-transform duration-150 ease-out group-hover:scale-105"
+                        />
+                      ) : (
+                        <span className="text-muted-foreground absolute inset-0 flex items-center justify-center text-xs">
+                          {photo.alt}
+                        </span>
+                      )}
+                    </button>
                   );
                 })}
               </div>
@@ -161,12 +152,13 @@ export function Gallery({ groups }: GalleryProps): React.ReactNode {
             <>
               <div className="bg-secondary relative aspect-4/3 w-full">
                 <BlurImage
-                  src={current.src}
+                  src={current.fullSrc}
                   alt={current.alt}
                   fill
                   sizes="(min-width: 768px) 80vw, 100vw"
                   className="object-contain"
                   priority
+                  unoptimized
                 />
 
                 {allPhotos.length > 1 && (

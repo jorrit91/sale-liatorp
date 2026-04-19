@@ -78,7 +78,7 @@ No tests, no dark mode, no README — intentional. Project is short-lived.
 
 - Price: €145.000 (1.600.000 SEK)
 - Contact: `tempelmanjorrit@gmail.com`, Instagram `@jorrit91`
-- Key stats: 90 m² woonruimte · 800 m² perceel · 3 slaapkamers · 1 badkamer · bouwjaar 2011 · luchtwarmtepomp · glasvezel · houtkachel
+- Key stats: 90 m² woonruimte · 800 m² perceel · 3 slaapkamers · 1 badkamer · bouwjaar 2012 · luchtwarmtepomp · glasvezel · houtkachel
 - Maps link: TBD (user will provide a static URL)
 
 ## What's next

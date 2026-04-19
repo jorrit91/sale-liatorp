@@ -2,6 +2,12 @@
 
 import { useState } from "react";
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { BlurImage } from "@/components/BlurImage";
 import { RichText } from "@/components/RichText";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -44,20 +50,26 @@ export function Location(): React.ReactNode {
           {location.title}
         </h2>
 
-        {/* Mobile: stacked list */}
-        <div className="mt-12 flex flex-col gap-10 md:hidden">
+        {/* Mobile: accordion */}
+        <Accordion
+          hiddenUntilFound
+          defaultValue={[location.tabs[0].key]}
+          className="mt-12 divide-y divide-[#faf8f4]/25 border-y border-[#faf8f4]/25 md:hidden"
+        >
           {location.tabs.map((tab) => (
-            <div key={tab.key} className="flex flex-col gap-3">
-              <h3 className="font-heading text-xl text-[#faf8f4] [text-shadow:0_1px_8px_rgba(0,0,0,0.5)]">
+            <AccordionItem key={tab.key} value={tab.key}>
+              <AccordionTrigger className="py-5 text-base font-medium text-[#faf8f4] [text-shadow:0_1px_8px_rgba(0,0,0,0.5)]">
                 {tab.title}
-              </h3>
-              <RichText
-                paragraphs={tab.paragraphs}
-                className="max-w-2xl text-base text-[#faf8f4]/90"
-              />
-            </div>
+              </AccordionTrigger>
+              <AccordionContent>
+                <RichText
+                  paragraphs={tab.paragraphs}
+                  className="text-base text-[#faf8f4]/90"
+                />
+              </AccordionContent>
+            </AccordionItem>
           ))}
-        </div>
+        </Accordion>
 
         {/* Desktop: vertical tabs */}
         <Tabs

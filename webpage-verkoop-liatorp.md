@@ -2,7 +2,7 @@
 
 1. _Hero sectie_
    Title: Klassiek Zweeds vakantiehuis zonder de klassieke ongemakken
-   Description: Gebouwd in 2011, met een snelle internetverbinding en een goede isolatie. Midden in de bossen van Småland, Zuid-Zweden, helemaal voor jullie voor slechts €145.000.
+   Description: Gebouwd in 2012, met een snelle internetverbinding en een goede isolatie. Midden in de bossen van Småland, Zuid-Zweden, helemaal voor jullie voor slechts €145.000.
 
    Knoppen met icoontjes: Mail ons (knop) of stuur een DM op Insta \[link\]
    Secundaire knop: Waar precies? \[link naar Maps\],
@@ -15,7 +15,7 @@
    800m2 perceeloppervlak
    3 slaapkamers
    1 badkamer
-   Gebouwd in 2011
+   Gebouwd in 2012
    Luchtwarmtepomp
    Grote klusschuur
    Eenvoudig gastenverblijf in tuin
@@ -46,7 +46,7 @@
 6. _Voorzieningen:_
    \[eenvoudige sectie zonder foto’s, maar met titels \+ descriptions om de basics te omschrijven, mogelijk ook met Tabs of Toggle Group\]
 
-| Isolatie   | Het huis is gebouwd in 2011, hierdoor is het goed geïsoleerd en heb je moderne verwarmingsopties. Dit drukt de kosten in de tijd dat je niet in het huis bent.                                                                                                                                                                                                     |
+| Isolatie   | Het huis is gebouwd in 2012, hierdoor is het goed geïsoleerd en heb je moderne verwarmingsopties. Dit drukt de kosten in de tijd dat je niet in het huis bent.                                                                                                                                                                                                     |
 | :--------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Internet   | In de afgelopen jaren is het huis voorzien van een bliksemsnelle glasvezelverbinding. Je kan zelf eenvoudig een abonnement kiezen dat bij je behoeften past (tot wel 1000 Mbit/s up en down), in Zweden kan je zelfs makkelijk een abonnement afsluiten voor maar 1 of 2 weken, handig als je alleen internet nodig hebt als je er even bent\!                     |
 | Verwarming | Hoofdverwarming is de luchtwarmtepomp in de woonkamer. Gezelliger is de houtkachel in de woonkamer die uitstekend het grootste deel van het huis verwarmd. Daarnaast kan je ruimtes bijverwarmen met de electrische radiatoren die overal geïnstalleerd zijn.                                                                                                      |

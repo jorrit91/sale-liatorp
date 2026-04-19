@@ -8,24 +8,22 @@ import { Hero } from "@/components/sections/hero";
 import { Location } from "@/components/sections/location";
 import { Slideshow } from "@/components/sections/slideshow";
 import { Separator } from "@/components/ui/separator";
-import { WinterTeaser } from "@/components/WinterTeaser";
 
 export default function HomePage() {
   return (
-    <main className="flex flex-col">
+    <main className="flex flex-col overflow-x-clip">
       <Hero />
       <BasicInfo />
       <Separator />
       <Slideshow />
       <Separator />
+      <Amenities />
       <Location />
       <Costs />
       <Separator />
-      <Amenities />
       <BuyingProcess />
       <ClosingImage />
       <Footer />
-      <WinterTeaser />
     </main>
   );
 }

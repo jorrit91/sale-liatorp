@@ -1,8 +1,8 @@
-import { Mail } from "lucide-react";
-
 import { InstagramIcon } from "@/components/icons/InstagramIcon";
 import { Button } from "@/components/ui/button";
 import { nl } from "@/content/nl";
+
+import { CopyEmailButton } from "./CopyEmailButton";
 
 export function Footer(): React.ReactNode {
   return (
@@ -26,9 +26,7 @@ export function Footer(): React.ReactNode {
         </p>
 
         <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Button size="lg" render={<a href={`mailto:${nl.common.email}`} />} className="gap-2">
-            <Mail className="size-4" /> {nl.common.email}
-          </Button>
+          <CopyEmailButton />
           <Button
             size="lg"
             variant="outline"

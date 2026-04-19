@@ -1,5 +1,13 @@
+"use client";
+
 import { AlertTriangle } from "lucide-react";
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { RichText } from "@/components/RichText";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { amenities } from "@/content/nl/amenities";
@@ -9,23 +17,29 @@ export function Amenities(): React.ReactNode {
     <section id="voorzieningen" className="mx-auto w-full max-w-6xl px-6 py-24 md:px-10 md:py-32">
       <h2 className="font-heading text-3xl leading-tight md:text-5xl">{amenities.title}</h2>
 
-      {/* Mobile: stacked list */}
-      <div className="mt-12 flex flex-col gap-10 md:hidden">
+      {/* Mobile: accordion */}
+      <Accordion
+        hiddenUntilFound
+        defaultValue={[amenities.tabs[0].key]}
+        className="divide-border border-border mt-12 divide-y border-y md:hidden"
+      >
         {amenities.tabs.map((tab) => (
-          <div key={tab.key} className="flex flex-col gap-3">
-            <h3 className="font-heading text-xl">
+          <AccordionItem key={tab.key} value={tab.key}>
+            <AccordionTrigger className="py-5 text-base font-medium">
               {tab.warning ? (
                 <AlertTriangle className="text-destructive mr-2 inline size-4" />
               ) : null}
               {tab.title}
-            </h3>
-            <RichText
-              paragraphs={tab.body}
-              className="text-foreground/80 max-w-2xl text-base leading-relaxed"
-            />
-          </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              <RichText
+                paragraphs={tab.body}
+                className="text-foreground/80 text-base leading-relaxed"
+              />
+            </AccordionContent>
+          </AccordionItem>
         ))}
-      </div>
+      </Accordion>
 
       {/* Desktop: vertical tabs */}
       <Tabs

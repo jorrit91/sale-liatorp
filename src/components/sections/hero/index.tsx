@@ -2,12 +2,68 @@
 
 import { BlurImage } from "@/components/BlurImage";
 import { Mail, MapPin } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 
 import { InstagramIcon } from "@/components/icons/InstagramIcon";
 import { Button } from "@/components/ui/button";
 import { heroImages } from "@/content/images";
 import { nl } from "@/content/nl";
+import { assetUrl } from "@/lib/asset-url";
+import { toSmallPath } from "@/lib/to-small-path";
+import { cn } from "@/lib/utils";
+
+const DESKTOP_QUERY = "(min-width: 768px)";
+
+function subscribeDesktop(callback: () => void): () => void {
+  const mq = window.matchMedia(DESKTOP_QUERY);
+  mq.addEventListener("change", callback);
+  return () => mq.removeEventListener("change", callback);
+}
+
+function getDesktopSnapshot(): boolean {
+  return window.matchMedia(DESKTOP_QUERY).matches;
+}
+
+function getDesktopServerSnapshot(): boolean {
+  return false;
+}
+
+function HeroSlide({ src, priority }: { src: string; priority: boolean }): React.ReactNode {
+  const isDesktop = useSyncExternalStore(
+    subscribeDesktop,
+    getDesktopSnapshot,
+    getDesktopServerSnapshot,
+  );
+  const [fullLoaded, setFullLoaded] = useState(false);
+
+  return (
+    <>
+      <BlurImage
+        src={assetUrl(toSmallPath(src))}
+        alt=""
+        fill
+        priority={priority}
+        sizes="100vw"
+        className="object-cover"
+        unoptimized
+      />
+      {isDesktop && (
+        /* eslint-disable-next-line @next/next/no-img-element */
+        <img
+          src={assetUrl(src)}
+          alt=""
+          aria-hidden
+          loading={priority ? "eager" : "lazy"}
+          onLoad={() => setFullLoaded(true)}
+          className={cn(
+            "absolute inset-0 h-full w-full object-cover transition-opacity duration-700",
+            fullLoaded ? "opacity-100" : "opacity-0",
+          )}
+        />
+      )}
+    </>
+  );
+}
 
 export function Hero(): React.ReactNode {
   const [index, setIndex] = useState(0);
@@ -20,24 +76,17 @@ export function Hero(): React.ReactNode {
   }, [slideCount]);
 
   return (
-    <section className="relative flex h-dvh w-full items-end overflow-hidden bg-[#1c2a22]">
+    <section className="relative flex h-svh w-full items-end overflow-hidden bg-[#1c2a22]">
       {/* Slideshow images — fill entire hero */}
       {heroImages.map((src, i) => (
         <div
           key={`${src}-${i}`}
           aria-hidden
-          className={`absolute inset-0 transition-opacity duration-[1500ms] ${
+          className={`duration-1500ms absolute inset-0 transition-opacity ${
             i === index ? "opacity-100" : "opacity-0"
           }`}
         >
-          <BlurImage
-            src={src}
-            alt=""
-            fill
-            priority={i === 0}
-            sizes="100vw"
-            className="object-cover"
-          />
+          <HeroSlide src={src} priority={i === 0} />
         </div>
       ))}
 

@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Snowflake, X } from "lucide-react";
+import { Snowflake } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 import { BlurImage } from "@/components/BlurImage";
 import { Snowfall } from "@/components/Snowfall";
@@ -14,13 +14,27 @@ type Phase = "hidden" | "visible" | "tucked" | "dismissed";
 export function WinterTeaser(): React.ReactNode {
   const [phase, setPhase] = useState<Phase>("hidden");
   const [modalOpen, setModalOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => setPhase("visible"), 8000);
-    return () => clearTimeout(timer);
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setPhase("visible");
+          observer.disconnect();
+        }
+      },
+      { threshold: 1 },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
-  if (!winterImage || phase === "dismissed") return null;
+  if (!winterImage) return null;
 
   function handleBadgeClick(): void {
     setModalOpen(true);
@@ -35,43 +49,33 @@ export function WinterTeaser(): React.ReactNode {
 
   return (
     <>
-      {/* Floating badge */}
-      <button
-        type="button"
-        onClick={handleBadgeClick}
-        className={`group fixed bottom-8 z-40 flex cursor-pointer items-center gap-2.5 rounded-r-full border border-l-0 border-sky-200/30 bg-gradient-to-r from-sky-50 to-white py-3 pr-5 pl-4 shadow-lg transition-all duration-500 ease-out hover:shadow-xl ${
-          phase === "hidden"
-            ? "-translate-x-full opacity-0"
-            : phase === "visible"
-              ? "translate-x-0 opacity-100"
-              : "-translate-x-[calc(100%-3rem)] opacity-90 hover:translate-x-0 hover:opacity-100"
-        }`}
+      {/* Sentinel + badge container */}
+      <div
+        ref={ref}
+        className="absolute top-1/2 z-20 -translate-y-1/2"
+        style={{ right: "calc(-50vw + 50%)" }}
       >
-        <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sky-600 transition-transform duration-300 group-hover:rotate-90">
-          <Snowflake className="size-4" />
-        </span>
-        <span className="text-sm font-medium whitespace-nowrap text-sky-900">
-          {nl.common.winterTeaser}
-        </span>
-        <span
-          role="button"
-          tabIndex={0}
-          aria-label="Sluiten"
-          onClick={(e) => {
-            e.stopPropagation();
-            setPhase("dismissed");
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.stopPropagation();
-              setPhase("dismissed");
-            }
-          }}
-          className="ml-1 flex size-5 shrink-0 items-center justify-center rounded-full text-sky-400 opacity-100 transition-opacity md:opacity-0 md:group-hover:opacity-100 hover:text-sky-700"
-        >
-          <X className="size-3" />
-        </span>
-      </button>
+        {phase !== "dismissed" && (
+          <button
+            type="button"
+            onClick={handleBadgeClick}
+            className={`group flex cursor-pointer items-center gap-2.5 rounded-l-full border border-r-0 border-sky-200/30 bg-linear-to-l from-sky-50 to-white py-3 pr-4 pl-5 shadow-lg transition-all duration-500 ease-out hover:shadow-xl ${
+              phase === "hidden"
+                ? "translate-x-full opacity-0"
+                : phase === "visible"
+                  ? "translate-x-0 opacity-100"
+                  : "translate-x-[calc(100%-3rem)] opacity-90 hover:translate-x-0 hover:opacity-100"
+            }`}
+          >
+            <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sky-600 transition-transform duration-300 group-hover:rotate-90">
+              <Snowflake className="size-4" />
+            </span>
+            <span className="text-sm font-medium whitespace-nowrap text-sky-900">
+              {nl.common.winterTeaser}
+            </span>
+          </button>
+        )}
+      </div>
 
       {/* Snowfall — only while modal is open */}
       {modalOpen && <Snowfall />}

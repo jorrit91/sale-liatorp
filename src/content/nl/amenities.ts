@@ -18,7 +18,7 @@ export const amenities: {
       title: "Isolatie",
       body: [
         [
-          "Het huis is gebouwd in 2011, hierdoor is het goed geïsoleerd en heb je moderne verwarmingsopties. Dit drukt de kosten in de tijd dat je niet in het huis bent.",
+          "Het huis is gebouwd in 2012, hierdoor is het goed geïsoleerd en heb je moderne verwarmingsopties. Dit drukt de kosten in de tijd dat je niet in het huis bent.",
         ],
       ],
     },
