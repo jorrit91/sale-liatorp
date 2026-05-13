@@ -12,7 +12,7 @@ export const buyingProcess: {
   steps: readonly Step[];
   tldr: string;
 } = {
-  title: "Hoe koop je een huis in Zweden?",
+  title: "Hoe koop je een huis in Zweden als je er niet woont?",
   intro:
     "Het kopen van een vakantiewoning in Zweden is zeer goed te doen als EU-burger, zeker als je geen hypotheek nodig hebt. In Zweden heeft de makelaar ook direct een notariële functie, dus tijdens de afhandeling wordt alles door de makelaar geregeld, wel zo overzichtelijk.",
   steps: [
@@ -42,11 +42,10 @@ export const buyingProcess: {
           "Hebben jullie een Zweeds persoonsnummer? Dan is het heel eenvoudig, het geld wordt op de derdenrekening van de makelaar gestort en wordt vrijgegeven op het moment dat de sleuteloverdracht plaatsvindt.",
         ],
         [
-          "Geen Zweeds persoonsnummer? Hoewel dit soms problemen kan geven (omdat banken soms weigeren om rekeningen te openen voor EU-burgers zonder persoonsnummer), heeft makelaar Stjernfeldt gelukkig aangegeven dat een Zweedse bankrekening geen vereiste is. Om de verkoop te vergemakkelijken kan het geld overgemaakt worden naar ",
-          { bold: "onze" },
-          " ",
-          { bold: "Nederlandse" },
-          " rekening, van daaruit kunnen we door naar de sleuteloverdracht.",
+          "Geen Zweeds persoonsnummer? Geen probleem, na ondertekening van het koopcontract moet een samordningsnummer aangevraagd worden bij Skatteverket (Belastingdienst), terwijl die aanvraag loopt kan er vast een bankrekening geopend worden. Dit proces kan even duren, maar uiteindelijk wordt deze rekening gebruikt om het geld naar Zweden te brengen.",
+        ],
+        [
+          "Klinkt complex, maar makelaar Stjernfeldt zal hierin begeleiden en ervoor zorgen dat het zo soepel mogelijk verloopt.",
         ],
       ],
     },
@@ -55,12 +54,7 @@ export const buyingProcess: {
       title: "4. Eigendomsregistratie (Lagfart)",
       paragraphs: [
         [
-          "Jullie sturen het koopcontract naar Lantmäteriet (het Zweedse kadaster) om geregistreerd te worden als eigenaar. Een kopie van het paspoort volstaat om de meerderjarigheid aan te tonen.",
-        ],
-        [
-          "Dit proces kan versneld worden door een ",
-          { italic: "samordningsnummer" },
-          " aan te vragen (een soort light-versie van een persoonsnummer), maar dit is niet noodzakelijk.",
+          "Stjernfeldt stuurt het koopcontract naar Lantmäteriet (het Zweedse kadaster) om jullie te registreren als nieuwe eigenaar.",
         ],
       ],
     },
@@ -74,7 +68,7 @@ export const buyingProcess: {
       ],
     },
   ],
-  tldr: "Geen Zweeds paspoort nodig, geen persoonsnummer nodig, overdrachtskosten van ~€2.250, makelaar heeft ook notariele functie en regelt al het papierwerk.",
+  tldr: "Geen Zweeds paspoort nodig, geen persoonsnummer nodig, overdrachtskosten van ~€2.250, makelaar heeft ook notariele functie en regelt al het papierwerk, kosten ongeveer €1350,-",
 };
 
 export type StepKey = (typeof buyingProcess.steps)[number]["key"];
