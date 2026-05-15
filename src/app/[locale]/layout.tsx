@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { notFound } from "next/navigation";
 import { Fraunces, Inter } from "next/font/google";
 
@@ -57,13 +58,16 @@ export default async function LocaleLayout({
   if (locale !== "nl" && locale !== "en") notFound();
 
   return (
-    <html lang={locale} className={`${inter.variable} ${fraunces.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col">
-        <ContentProvider initialLocale={locale}>
-          <LocaleSwitch />
-          {children}
-        </ContentProvider>
-      </body>
-    </html>
+    <>
+      <html lang={locale} className={`${inter.variable} ${fraunces.variable} h-full antialiased`}>
+        <body className="flex min-h-full flex-col">
+          <ContentProvider initialLocale={locale}>
+            <LocaleSwitch />
+            {children}
+          </ContentProvider>
+        </body>
+      </html>
+      <Analytics />
+    </>
   );
 }
