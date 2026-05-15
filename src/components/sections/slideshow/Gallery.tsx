@@ -26,9 +26,33 @@ interface GalleryProps {
   groups: Group[];
 }
 
+const DESKTOP_QUERY = "(min-width: 768px)";
+const SWIPE_THRESHOLD_PX = 50;
+const SWIPE_AXIS_RATIO = 1.2;
+
+function subscribeDesktop(callback: () => void): () => void {
+  const mq = window.matchMedia(DESKTOP_QUERY);
+  mq.addEventListener("change", callback);
+  return () => mq.removeEventListener("change", callback);
+}
+
+function getDesktopSnapshot(): boolean {
+  return window.matchMedia(DESKTOP_QUERY).matches;
+}
+
+function getDesktopServerSnapshot(): boolean {
+  return false;
+}
+
 export function Gallery({ groups }: GalleryProps): React.ReactNode {
   const [openIndex, setOpenIndex] = React.useState<number | null>(null);
   const thumbRefs = React.useRef<Map<number, HTMLButtonElement>>(new Map());
+  const swipeStartRef = React.useRef<{ x: number; y: number } | null>(null);
+  const isDesktop = React.useSyncExternalStore(
+    subscribeDesktop,
+    getDesktopSnapshot,
+    getDesktopServerSnapshot,
+  );
 
   // Flat list of all photos across groups for prev/next navigation
   const allPhotos = React.useMemo(() => groups.flatMap((g) => g.photos), [groups]);
@@ -68,6 +92,34 @@ export function Gallery({ groups }: GalleryProps): React.ReactNode {
 
   function next(): void {
     setOpenIndex((i) => (i === null ? null : i === allPhotos.length - 1 ? 0 : i + 1));
+  }
+
+  function handleTouchStart(e: React.TouchEvent): void {
+    if (isDesktop || allPhotos.length <= 1 || e.touches.length !== 1) return;
+    const touch = e.touches[0];
+    swipeStartRef.current = { x: touch.clientX, y: touch.clientY };
+  }
+
+  function handleTouchEnd(e: React.TouchEvent): void {
+    if (isDesktop || allPhotos.length <= 1 || !swipeStartRef.current) return;
+
+    const touch = e.changedTouches[0];
+    const deltaX = touch.clientX - swipeStartRef.current.x;
+    const deltaY = touch.clientY - swipeStartRef.current.y;
+    swipeStartRef.current = null;
+
+    if (
+      Math.abs(deltaX) < SWIPE_THRESHOLD_PX ||
+      Math.abs(deltaX) < Math.abs(deltaY) * SWIPE_AXIS_RATIO
+    ) {
+      return;
+    }
+
+    if (deltaX < 0) {
+      next();
+    } else {
+      prev();
+    }
   }
 
   function handleKeyDown(e: React.KeyboardEvent): void {
@@ -155,7 +207,14 @@ export function Gallery({ groups }: GalleryProps): React.ReactNode {
         >
           {current && (
             <>
-              <div className="bg-secondary relative aspect-4/3 w-full">
+              <div
+                className="bg-secondary relative aspect-4/3 w-full touch-pan-y"
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+                onTouchCancel={() => {
+                  swipeStartRef.current = null;
+                }}
+              >
                 <BlurImage
                   src={current.fullSrc}
                   alt={current.alt}
