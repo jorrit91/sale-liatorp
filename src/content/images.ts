@@ -1,5 +1,8 @@
+import { assetUrl } from "@/lib/asset-url";
+import { toSmallPath } from "@/lib/to-small-path";
+
 /**
- * Image URL arrays — fill with URLs (paths into /public or absolute URLs).
+ * Image URL arrays.
  * Order matters: each index maps to the matching content entry.
  */
 
@@ -12,18 +15,18 @@ export const heroImages: string[] = [
 ];
 
 // Basic info: one or more photos showing the house + plot alongside the specs.
-export const basicInfoImages: string[] = ["/images/aerial-photo-hero_3.jpeg"];
+export const basicInfoImages: string[] = [assetUrl("images/aerial-photo-hero_3.jpg")];
 
 // Winter easter egg photo shown in the floating modal.
-export const winterImage: string = "/images/huis-winter.jpg";
+export const winterImage: string = assetUrl("huis-winter.jpg");
 
 // Full-bleed closing photo shown right before the footer.
-export const closingImage: string = "/images/huis-zomer.jpg";
+export const closingImage: string = assetUrl("huis-zomer.jpg");
 
 // Location tabs backgrounds. Index matches `nl.location.tabs`.
 export const locationImages: string[] = [
-  "/images/mockeln-lake.webp",
-  "/images/vaxjo-centrum.jpg",
-  "/images/vuurtje-buiten-avontuur.jpg",
-  "/images/copenhagen.webp",
-];
+  "mockeln-lake.jpg",
+  "vaxjo-centrum.jpg",
+  "vuurtje-buiten-avontuur.jpg",
+  "copenhagen.jpg",
+].map((path) => assetUrl(path));
