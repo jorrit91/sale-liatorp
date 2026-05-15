@@ -4,7 +4,7 @@ import { BlurImage } from "@/components/BlurImage";
 import { useContent } from "@/components/ContentProvider";
 import { CopyEmailButton } from "@/components/CopyEmailButton";
 import { MapPin } from "lucide-react";
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 import { InstagramIcon } from "@/components/icons/InstagramIcon";
 import { Button } from "@/components/ui/button";
@@ -14,6 +14,8 @@ import { toSmallPath } from "@/lib/to-small-path";
 import { cn } from "@/lib/utils";
 
 const DESKTOP_QUERY = "(min-width: 768px)";
+const SWIPE_THRESHOLD_PX = 50;
+const SWIPE_AXIS_RATIO = 1.2;
 
 function subscribeDesktop(callback: () => void): () => void {
   const mq = window.matchMedia(DESKTOP_QUERY);
@@ -69,16 +71,63 @@ function HeroSlide({ src, priority }: { src: string; priority: boolean }): React
 export function Hero(): React.ReactNode {
   const content = useContent();
   const [index, setIndex] = useState(0);
+  const [navigationVersion, setNavigationVersion] = useState(0);
+  const swipeStartRef = useRef<{ x: number; y: number } | null>(null);
   const slideCount = heroImages.length;
+  const isDesktop = useSyncExternalStore(
+    subscribeDesktop,
+    getDesktopSnapshot,
+    getDesktopServerSnapshot,
+  );
 
   useEffect(() => {
     if (slideCount <= 1) return;
     const id = setInterval(() => setIndex((i) => (i + 1) % slideCount), 6000);
     return () => clearInterval(id);
-  }, [slideCount]);
+  }, [slideCount, navigationVersion]);
+
+  const navigateToSlide = useCallback((nextIndex: number) => {
+    setIndex(nextIndex);
+    setNavigationVersion((version) => version + 1);
+  }, []);
+
+  const navigateBySlideOffset = useCallback(
+    (offset: number) => {
+      setIndex((current) => (current + offset + slideCount) % slideCount);
+      setNavigationVersion((version) => version + 1);
+    },
+    [slideCount],
+  );
 
   return (
-    <section className="relative flex h-svh w-full items-end overflow-hidden bg-[#1c2a22]">
+    <section
+      className="relative flex h-svh w-full touch-pan-y items-end overflow-hidden bg-[#1c2a22]"
+      onTouchStart={(event) => {
+        if (isDesktop || slideCount <= 1) return;
+        const touch = event.touches[0];
+        swipeStartRef.current = { x: touch.clientX, y: touch.clientY };
+      }}
+      onTouchEnd={(event) => {
+        if (isDesktop || slideCount <= 1 || !swipeStartRef.current) return;
+
+        const touch = event.changedTouches[0];
+        const deltaX = touch.clientX - swipeStartRef.current.x;
+        const deltaY = touch.clientY - swipeStartRef.current.y;
+        swipeStartRef.current = null;
+
+        if (
+          Math.abs(deltaX) < SWIPE_THRESHOLD_PX ||
+          Math.abs(deltaX) < Math.abs(deltaY) * SWIPE_AXIS_RATIO
+        ) {
+          return;
+        }
+
+        navigateBySlideOffset(deltaX < 0 ? 1 : -1);
+      }}
+      onTouchCancel={() => {
+        swipeStartRef.current = null;
+      }}
+    >
       {/* Slideshow images — fill entire hero */}
       {heroImages.map((src, i) => (
         <div
@@ -99,43 +148,50 @@ export function Hero(): React.ReactNode {
       />
 
       {/* Text content — anchored to bottom */}
-      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-start px-6 pb-16 text-[#faf8f4] md:px-10 md:pb-24">
-        <h1 className="font-heading text-4xl leading-[1.05] font-normal md:text-6xl">
+      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-start px-6 pb-8 text-[#faf8f4] md:px-10 md:pb-24">
+        <h1 className="font-heading text-3xl leading-[1.05] font-normal md:text-6xl">
           {content.hero.title}
         </h1>
-        <p className="mt-6 max-w-2xl text-base leading-relaxed text-[#faf8f4]/80 md:text-lg">
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[#faf8f4]/80 md:mt-6 md:text-lg">
           {content.hero.description}
         </p>
-        <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
-          <CopyEmailButton />
+        <div className="mt-4 flex items-center gap-2 md:mt-8">
+          <CopyEmailButton
+            iconOnly
+            className="border-[#faf8f4]/30 bg-transparent text-[#faf8f4] hover:bg-[#faf8f4]/10 hover:text-[#faf8f4]"
+          />
           <Button
-            size="lg"
+            size="icon-sm"
             variant="outline"
             render={<a href={content.common.instagramUrl} target="_blank" rel="noreferrer" />}
-            className="gap-2 border-[#faf8f4]/30 bg-transparent text-[#faf8f4] hover:bg-[#faf8f4]/10 hover:text-[#faf8f4]"
+            aria-label={content.common.instagramHandle}
+            title={content.common.instagramHandle}
+            className="border-[#faf8f4]/30 bg-transparent text-[#faf8f4] hover:bg-[#faf8f4]/10 hover:text-[#faf8f4]"
           >
-            <InstagramIcon className="size-4" /> {content.common.instagramHandle}
+            <InstagramIcon className="size-4" />
           </Button>
-          <a
-            href={content.common.mapsUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm text-[#faf8f4]/70 underline-offset-4 hover:text-[#faf8f4] hover:underline sm:ml-2"
+          <Button
+            size="icon-sm"
+            variant="outline"
+            render={<a href={content.common.mapsUrl} target="_blank" rel="noreferrer" />}
+            aria-label={content.hero.ctas.maps}
+            title={content.hero.ctas.maps}
+            className="border-[#faf8f4]/30 bg-transparent text-[#faf8f4] hover:bg-[#faf8f4]/10 hover:text-[#faf8f4]"
           >
-            <MapPin className="size-3.5" /> {content.hero.ctas.maps}
-          </a>
+            <MapPin className="size-4" />
+          </Button>
         </div>
       </div>
 
       {/* Slide indicators */}
       {slideCount > 1 && (
-        <div className="absolute right-6 bottom-16 z-10 flex items-center gap-2 md:right-10 md:bottom-24">
+        <div className="absolute right-6 bottom-8 z-10 flex items-center gap-2 md:right-10 md:bottom-24">
           {heroImages.map((_, i) => (
             <button
               key={i}
               type="button"
               aria-label={`Ga naar slide ${i + 1}`}
-              onClick={() => setIndex(i)}
+              onClick={() => navigateToSlide(i)}
               className={`h-1.5 rounded-full transition-all ${
                 i === index ? "w-8 bg-[#faf8f4]" : "w-1.5 bg-[#faf8f4]/40 hover:bg-[#faf8f4]/60"
               }`}

@@ -7,7 +7,15 @@ import { useContent } from "@/components/ContentProvider";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-export function CopyEmailButton(): React.ReactNode {
+type CopyEmailButtonProps = {
+  iconOnly?: boolean;
+  className?: string;
+};
+
+export function CopyEmailButton({
+  iconOnly = false,
+  className,
+}: CopyEmailButtonProps): React.ReactNode {
   const content = useContent();
   const [copied, setCopied] = useState(false);
   const timerRef = useRef<number | null>(null);
@@ -23,6 +31,24 @@ export function CopyEmailButton(): React.ReactNode {
       .catch(() => {
         // clipboard may be unavailable in insecure contexts — silently ignore
       });
+  }
+
+  if (iconOnly) {
+    return (
+      <Button
+        size="icon-sm"
+        render={
+          <a
+            href={`mailto:${content.common.email}`}
+            aria-label={content.common.email}
+            title={content.common.email}
+          />
+        }
+        className={className}
+      >
+        <Mail className="size-4" />
+      </Button>
+    );
   }
 
   return (
